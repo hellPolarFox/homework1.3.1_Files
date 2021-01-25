@@ -32,7 +32,11 @@ public class Main {
         createDir("D://Games/res/vectors");
         createDir("D://Games/res/icons");
 
-        createFile("D://Games/temp//temp.txt");
+        try {
+            createFile("D://Games/temp//temp.txt");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
         try (FileWriter logWriter = new FileWriter("D://Games/temp//temp.txt")) {
             logWriter.write(log.toString());

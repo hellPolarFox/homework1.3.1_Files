@@ -1,65 +1,38 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.function.Consumer;
 
 public class Main {
 
+    static StringBuilder log = new StringBuilder();
+
     public static void main(String[] args) throws Exception {
 
-        StringBuilder log = new StringBuilder();
-
-        if (new File("D://Games").mkdir())
-            log.append("Папка D://Games создана\n");
-
-        if (new File("D://Games/src").mkdir())
-            log.append("Папка D://Games/src создана\n");
-
-        if (new File("D://Games/res").mkdir())
-            log.append("Папка D://Games/res создана\n");
-
-        if (new File("D://Games/savegames").mkdir())
-            log.append("Папка D://Games/savegames создана\n");
-
-        if (new File("D://Games/temp").mkdir())
-            log.append("Папка D://Games/temp создана\n");
-
-        if (new File("D://Games/src/main").mkdir())
-            log.append("Папка D://Games/src/main создана\n");
-
-        if (new File("D://Games/src/test").mkdir())
-            log.append("Папка D://Games/src/test создана\n");
+        createDir("D://Games");
+        createDir("D://Games/src");
+        createDir("D://Games/res");
+        createDir("D://Games/savegames");
+        createDir("D://Games/temp");
+        createDir("D://Games/src/main");
+        createDir("D://Games/src/test");
 
         try {
-            if (new File("D://Games/src/main//Main.java").createNewFile())
-                log.append("Файл Main.java в каталоге D://Games/src/main создан\n");
+            createFile("D://Games/src/main//Main.java");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
         try {
-            if (new File("D://Games/src/main//Utils.java").createNewFile())
-                log.append("Файл Utils.java в каталоге D://Games/src/main создан\n");
+            createFile("D://Games/src/main//Utils.java");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
-        if (new File("D://Games/res/drawables").mkdir())
-            log.append("Папка D://Games/res/drawables создана\n");
+        createDir("D://Games/res/drawables");
+        createDir("D://Games/res/vectors");
+        createDir("D://Games/res/icons");
 
-        if (new File("D://Games/res/vectors").mkdir())
-            log.append("Папка D://Games/res/vectors создана\n");
-
-        if (new File("D://Games/res/icons").mkdir())
-            log.append("Папка D://Games/res/icons создана\n");
-
-
-        try {
-            if (new File("D://Games/temp//temp.txt").createNewFile())
-                log.append("Файл temp.txt в каталоге D://Games/temp создан\n");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        createFile("D://Games/temp//temp.txt");
 
         try (FileWriter logWriter = new FileWriter("D://Games/temp//temp.txt")) {
             logWriter.write(log.toString());
@@ -68,5 +41,24 @@ public class Main {
             System.out.println(ex.getMessage());
         }
 
+        System.out.println(log.toString());
+
     }
+
+    static void createDir(String path) {
+        if (new File(path).mkdir()) log.append("Папка ")
+                .append(path)
+                .append(" создана\n---\n");
+    }
+
+    static void createFile(String path) throws Exception {
+        if (new File(path).createNewFile()) {
+            log.append("Файл ")
+                    .append(path, path.lastIndexOf('/') + 1, path.length())
+                    .append(" в каталоге ")
+                    .append(path, 0, path.lastIndexOf('/') - 1)
+                    .append(" создан\n---\n");
+        }
+    }
+
 }

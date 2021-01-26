@@ -17,13 +17,13 @@ public class Main {
         createDir("D://Games/src/test");
 
         try {
-            createFile("D://Games/src/main//Main.java");
+            createFile("D://Games/src/main/Main.java");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
         try {
-            createFile("D://Games/src/main//Utils.java");
+            createFile("D://Games/src/main/Utils.java");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -33,26 +33,24 @@ public class Main {
         createDir("D://Games/res/icons");
 
         try {
-            createFile("D://Games/temp//temp.txt");
+            createFile("D://Games/temp/temp.txt");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
-        try (FileWriter logWriter = new FileWriter("D://Games/temp//temp.txt")) {
+        try (FileWriter logWriter = new FileWriter("D://Games/temp/temp.txt")) {
             logWriter.write(log.toString());
             logWriter.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
-        System.out.println(log.toString());
-
     }
 
     static void createDir(String path) {
         if (new File(path).mkdir()) log.append("Папка ")
                 .append(path)
-                .append(" создана\n---\n");
+                .append(" создана");
     }
 
     static void createFile(String path) throws Exception {
@@ -60,8 +58,8 @@ public class Main {
             log.append("Файл ")
                     .append(path, path.lastIndexOf('/') + 1, path.length())
                     .append(" в каталоге ")
-                    .append(path, 0, path.lastIndexOf('/') - 1)
-                    .append(" создан\n---\n");
+                    .append(path, 0, path.lastIndexOf('/'))
+                    .append(" создан");
         }
     }
 
